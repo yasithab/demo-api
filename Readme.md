@@ -58,7 +58,8 @@ curl "http://localhost/api/get/<user_id>" \
 curl -X "POST" "http://localhost/api/post" \
      -H 'Content-Type: application/json' \
      -d $'{
-          "name": "Saman",
+          "name": "Saman Gamage",
+          "email": "info@saman.com",
           "age": 26
         }'
 ```
@@ -70,7 +71,8 @@ curl -X "POST" "http://localhost/api/post" \
 curl -X "PATCH" "http://localhost/api/update/<user_id>" \
      -H 'Content-Type: application/json' \
      -d $'{
-          "name": "Ranidu",
+          "name": "Ranidu Ekanayake",
+          "email": "info@ranidu.com",
           "age": 46
         }'
 ```
