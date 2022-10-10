@@ -1,6 +1,7 @@
 const express = require('express');
 const Model = require('../models/model');
 const router = express.Router();
+const { body, validationResult } = require('express-validator');
 
 // Get all Method
 router.get('/get', async (req, res) => {
@@ -33,7 +34,13 @@ router.get('/get/:id', async (req, res) => {
 })
 
 // Post Method
-router.post('/post', async (req, res) => {
+router.post('/post', body('email').isEmail(), async (req, res) => {
+    // Finds the validation errors in this request
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({message: 'You must provide a valid email address'});
+    }
+
     const records = new Model({
         name: req.body.name,
         email: req.body.email,
@@ -55,8 +62,14 @@ router.post('/post', async (req, res) => {
 })
 
 // Update by ID Method
-router.patch('/update/:id', async (req, res) => {
+router.patch('/update/:id', body('email').isEmail(), async (req, res) => {
     try {
+        // Finds the validation errors in this request
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({message: 'You must provide a valid email address'});
+        }
+
         const id = req.params.id;
         const updatedData = req.body;
         const options = { new: true };
